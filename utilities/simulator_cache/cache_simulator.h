@@ -16,8 +16,8 @@ namespace ROCKSDB_NAMESPACE {
 struct CacheConfiguration {
   std::string cache_name;  // LRU.
   uint32_t num_shard_bits;
-  uint64_t ghost_cache_capacity;  // ghost cache capacity in bytes.
-  std::vector<uint64_t>
+  size_t ghost_cache_capacity;  // ghost cache capacity in bytes.
+  std::vector<size_t>
       cache_capacities;  // simulate cache capacities in bytes.
 
   bool operator==(const CacheConfiguration& o) const {
@@ -134,7 +134,7 @@ class PrioritizedCacheSimulator : public CacheSimulator {
 
  protected:
   // Access the key-value pair and returns true upon a cache miss.
-  void AccessKVPair(const Slice& key, uint64_t value_size,
+  void AccessKVPair(const Slice& key, size_t value_size,
                     Cache::Priority priority,
                     const BlockCacheTraceRecord& access, bool no_insert,
                     bool is_user_access, bool* is_cache_miss, bool* admitted,

@@ -525,7 +525,7 @@ class MemTable {
 
   // keep track of memory usage in table_, arena_, and range_del_table_.
   // Gets refrshed inside `ApproximateMemoryUsage()` or `ShouldFlushNow`
-  std::atomic<uint64_t> approximate_memory_usage_;
+  std::atomic<size_t> approximate_memory_usage_;
 
 #ifndef ROCKSDB_LITE
   // Flush job info of the current memtable.

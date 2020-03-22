@@ -85,7 +85,7 @@ Cache::Priority PrioritizedCacheSimulator::ComputeBlockPriority(
 }
 
 void PrioritizedCacheSimulator::AccessKVPair(
-    const Slice& key, uint64_t value_size, Cache::Priority priority,
+    const Slice& key, size_t value_size, Cache::Priority priority,
     const BlockCacheTraceRecord& access, bool no_insert, bool is_user_access,
     bool* is_cache_miss, bool* admitted, bool update_metrics) {
   assert(is_cache_miss);
@@ -201,7 +201,7 @@ Status BlockCacheTraceSimulator::InitializeCaches() {
     for (auto cache_capacity : config.cache_capacities) {
       // Scale down the cache capacity since the trace contains accesses on
       // 1/'downsample_ratio' blocks.
-      uint64_t simulate_cache_capacity = cache_capacity / downsample_ratio_;
+      size_t simulate_cache_capacity = cache_capacity / downsample_ratio_;
       std::shared_ptr<CacheSimulator> sim_cache;
       std::unique_ptr<GhostCache> ghost_cache;
       std::string cache_name = config.cache_name;
