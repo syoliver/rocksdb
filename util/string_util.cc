@@ -375,8 +375,17 @@ double ParseDouble(const std::string& value) {
 #endif
 }
 
-size_t ParseSizeT(const std::string& value) {
+
+size_t ParseSizeT(
+    const std::string& value,
+    std::enable_if_t<std::is_same<size_t, uint64_t>::value>* dummy = nullptr) {
   return static_cast<size_t>(ParseUint64(value));
+}
+
+size_t ParseSizeT(
+    const std::string& value,
+    std::enable_if_t<std::is_same<size_t, uint32_t>::value>* dummy = nullptr) {
+  return static_cast<size_t>(ParseUint32(value));
 }
 
 std::vector<int> ParseVectorInt(const std::string& value) {

@@ -24,8 +24,6 @@ class MemTableList;
 
 // Config for retrieving a property's value.
 struct DBPropertyInfo {
-  bool need_out_of_mutex;
-
   // gcc had an internal error for initializing union of pointer-to-member-
   // functions. Workaround is to populate exactly one of the following function
   // pointers with a non-nullptr value.
@@ -49,6 +47,10 @@ struct DBPropertyInfo {
   // handle the string type properties rely on DBImpl methods
   // @param value Value-result argument for storing the property's string value
   bool (DBImpl::*handle_string_dbimpl)(std::string* value);
+
+  // MSVC : alignment of a member was sensitive to packing
+  // Ordering members from larger to smaller
+  bool need_out_of_mutex;
 };
 
 extern const DBPropertyInfo* GetPropertyInfo(const Slice& property);

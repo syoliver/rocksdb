@@ -108,7 +108,7 @@ struct BlockCacheTraceRecord {
   uint64_t access_timestamp = 0;
   std::string block_key;
   TraceType block_type = TraceType::kTraceMax;
-  uint64_t block_size = 0;
+  size_t block_size = 0;
   uint64_t cf_id = 0;
   std::string cf_name;
   uint32_t level = 0;
@@ -121,7 +121,7 @@ struct BlockCacheTraceRecord {
   Boolean get_from_user_specified_snapshot = Boolean::kFalse;
   std::string referenced_key;
   // Required fields for data block and user Get/Multi-Get only.
-  uint64_t referenced_data_size = 0;
+  size_t referenced_data_size = 0;
   uint64_t num_keys_in_block = 0;
   Boolean referenced_key_exist_in_block = Boolean::kFalse;
 
@@ -129,12 +129,12 @@ struct BlockCacheTraceRecord {
 
   BlockCacheTraceRecord(
       uint64_t _access_timestamp, std::string _block_key, TraceType _block_type,
-      uint64_t _block_size, uint64_t _cf_id, std::string _cf_name,
+      size_t _block_size, uint64_t _cf_id, std::string _cf_name,
       uint32_t _level, uint64_t _sst_fd_number, TableReaderCaller _caller,
       bool _is_cache_hit, bool _no_insert,
       uint64_t _get_id = BlockCacheTraceHelper::kReservedGetId,
       bool _get_from_user_specified_snapshot = false,
-      std::string _referenced_key = "", uint64_t _referenced_data_size = 0,
+      std::string _referenced_key = "", size_t _referenced_data_size = 0,
       uint64_t _num_keys_in_block = 0,
       bool _referenced_key_exist_in_block = false)
       : access_timestamp(_access_timestamp),
